@@ -4,10 +4,15 @@ defined( 'BASEPATH' ) or exit( 'No direct script access allowed' );
 
 class Payroll extends CI_Controller
  {
+    public function __construct() {
+        parent::__construct();
+        $this->load->model( 'Department_model' );
+    }
+
     public function index()
  {
-        $query = $this->db->query( 'SELECT * FROM `department`' );
-        $data[ 'result' ] = $query->result_array();
+
+        $data[ 'result' ] = $this->Department_model->get_records();
         $this->load->view( 'viewdept', $data );
 
     }
@@ -16,20 +21,16 @@ class Payroll extends CI_Controller
  {
         $this->load->view( 'add_department' );
     }
-    
 
     public function do_insert()
  {
-        $dept_name = $_POST[ 'dept_name' ];
-        $query = $this->db->query( "INSERT INTO `department`(`department_name`)
-             VALUES ('$dept_name')" );
-        if ( $query ) {
-            $this->session->set_flashdata( 'inserted', 'yes' );
-            redirect( 'payroll' );
-        } else {
-            $this->session->set_flashdata( 'inserted', 'no' );
-            redirect( 'payroll' );
-        }
+        $data = array(
+            'department_name' => $this->input->post( 'dept_name' )
+        );
+
+        $this->Department_model->insert( $data );
+
+        redirect( base_url( 'index.php/payroll' ) );
 
     }
 
@@ -69,43 +70,43 @@ class Payroll extends CI_Controller
             echo 'notdeleted';
         }
     }
-    public function active_status_user($id){
-        if(isset($_GET['id'])){
-          $data = array('status' => '1');
-          $id = $_GET['id'];
-          $this->db->where('id', $id);
-          $result = $this->db->update('department',$data);
-          // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
-          // if($sql){
-            redirect('payroll');
-          }
-        else{
-          $data = array('status' => '0');
-          $this->db->where('id', $id);
-          $result = $this->db->update('department',$data);
-          // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
-          // if($sql){
-            redirect('payroll');
-          }
+
+    public function active_status_user( $id ) {
+        if ( isset( $_GET[ 'id' ] ) ) {
+            $data = array( 'status' => '1' );
+            $id = $_GET[ 'id' ];
+            $this->db->where( 'id', $id );
+            $result = $this->db->update( 'department', $data );
+            // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
+            // if ( $sql ) {
+            redirect( 'payroll' );
+        } else {
+            $data = array( 'status' => '0' );
+            $this->db->where( 'id', $id );
+            $result = $this->db->update( 'department', $data );
+            // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
+            // if ( $sql ) {
+            redirect( 'payroll' );
         }
-        public function deactive_status_user($id){
-          if(isset($_GET['id'])){
-            $data = array('status' => '0');
-            $id = $_GET['id'];
-            $this->db->where('id', $id);
-            $result = $this->db->update('department',$data);
+    }
+
+    public function deactive_status_user( $id ) {
+        if ( isset( $_GET[ 'id' ] ) ) {
+            $data = array( 'status' => '0' );
+            $id = $_GET[ 'id' ];
+            $this->db->where( 'id', $id );
+            $result = $this->db->update( 'department', $data );
             // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
-            // if($sql){
-              redirect('payroll');
-            }
-          else{
-            $data = array('status' => '1');
-            $this->db->where('id', $id);
-            $result = $this->db->update('department',$data);
+            // if ( $sql ) {
+            redirect( 'payroll' );
+        } else {
+            $data = array( 'status' => '1' );
+            $this->db->where( 'id', $id );
+            $result = $this->db->update( 'department', $data );
             // $sql = "UPDATE `department` SET `status=1 WHERE id='$id'";
-            // if($sql){
-              redirect('payroll');
-            }
-          }
+            // if ( $sql ) {
+            redirect( 'payroll' );
+        }
+    }
 }
 ?>

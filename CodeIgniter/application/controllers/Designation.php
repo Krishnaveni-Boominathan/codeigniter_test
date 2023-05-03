@@ -10,9 +10,9 @@ class Designation extends CI_Controller
     }
     public function index()
  {
-        $query = $this->db->query( 'SELECT * FROM `designation`' );
-        $data[ 'result' ] = $query->result_array();
-        $this->load->view( 'view_designation', $data );
+  $data['result']=$this->Designation_model->get_records();
+  $this->load->view('view_designation',$data);
+        
 
     }
 
@@ -31,17 +31,25 @@ class Designation extends CI_Controller
    
        public function insert()
        {
-              $dept_name = $_POST[ 'department' ];
-              $desg_name = $_POST[ 'designation' ];
-              $query = $this->db->query( "INSERT INTO `designation`(`department_name`,`designation_name`)
-                   VALUES ('$dept_name','$desg_name')" );
-              if ( $query ) {
-                  $this->session->set_flashdata( 'inserted', 'yes' );
-                  redirect( 'designation' );
-              } else {
-                  $this->session->set_flashdata( 'inserted', 'no' );
-                  redirect( 'designation' );
-              }
+        $data = array(
+          "department_name" => $this->input->post('department'),
+          "designation_name" => $this->input->post('designation')
+      );
+
+      $this->Designation_model->insert($data);
+     
+      redirect(base_url('index.php/designation'));
+              // $dept_name = $_POST[ 'department' ];
+              // $desg_name = $_POST[ 'designation' ];
+              // $query = $this->db->query( "INSERT INTO `designation`(`department_name`,`designation_name`)
+              //      VALUES ('$dept_name','$desg_name')" );
+              // if ( $query ) {
+              //     $this->session->set_flashdata( 'inserted', 'yes' );
+              //     redirect( 'designation' );
+              // } else {
+              //     $this->session->set_flashdata( 'inserted', 'no' );
+              //     redirect( 'designation' );
+              // }
       
           }
 

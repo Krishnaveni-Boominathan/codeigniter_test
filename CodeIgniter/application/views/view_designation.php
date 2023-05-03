@@ -17,34 +17,34 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($result as $row => $value): ?>
+                <?php foreach ($result as $value): ?>
                     <tr>
                         <td>
-                            <?php echo $value['id'] ?>
+                            <?php echo $value->id ?>
                         </td>
                         <td>
-                            <?php echo $value['department_name'] ?>
+                            <?php echo $value->department_name ?>
                         </td>
                         <td>
-                            <?php echo $value['designation_name'] ?>
+                            <?php echo $value->designation_name ?>
                         </td>
-                        <td><?php if($value['status'] == 1){ ?>
-                <a class="btn btn-success" href="<?php echo base_url()?>index.php/designation/active_status_user/<?= $value['id']?>">Active</a>
+                        <td><?php if($value->status == 1){ ?>
+                <a class="btn btn-success" href="<?php echo base_url()?>index.php/designation/active_status_user/<?= $value->id?>">Active</a>
 
                  <?php } else { ?>
 
-            <a class="btn btn-danger" href="<?php echo base_url()?>index.php/designation/deactive_status_user/<?= $value['id']?>">Deactive</a>
+            <a class="btn btn-danger" href="<?php echo base_url()?>index.php/designation/deactive_status_user/<?= $value->id?>">Deactive</a>
                 <?php }?>
                 </td>
                      
                         <!-- <td><a class="btn btn-success"
-                                href="<?php //echo base_url('index.php/admin/blog/blog_show/' . $value['blog_id']) ?>"
-                                data-id='<?php //echo $value['blog_id'] ?>'>Show</a>
+                                href="<?php //echo base_url('index.php/admin/blog/blog_show/' . $value->blog_id) ?>"
+                                data-id='<?php //echo $value->blog_id ?>'>Show</a>
                         </td> -->
                         <td><a class="btn btn-info"
-                                href="<?php echo base_url('index.php/designation/edit/' . $value['id']) ?>">Edit</a>
+                                href="<?php echo base_url('index.php/designation/edit/' . $value->id) ?>">Edit</a>
                         </td>
-                        <td><a class="btn delete btn-danger" href="" data-id='<?php echo $value['id'] ?>'>Delete</a>
+                        <td><a class="btn delete btn-danger" href="" data-id='<?php echo $value->id ?>'>Delete</a>
                         </td>
 
                     </tr>

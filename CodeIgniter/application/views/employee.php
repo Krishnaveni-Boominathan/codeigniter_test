@@ -13,20 +13,20 @@
             <label>Date of joining</label>
             <input type="date"  name="doj" placeholder="Date of joining"><br><br>
             <label for="department">Choose a department:</label>
-<select name="department" id="department">
-<option value="" selected disabled>Select</option>
-<?php foreach ($departments as $department): ?>
+            <select name="department" id="department">
+            <option value="" selected disabled>Select</option>
+            <?php foreach ($departments as $department): ?>
 
-  <option value="<?php echo $department->department_name ?>">
-<?php echo $department->department_name ?></option>
-<?php endforeach; ?>
-</select><br><br>
+            <option value="<?php echo $department->department_name ?>">
+            <?php echo $department->department_name ?></option>
+            <?php endforeach; ?>
+            </select><br><br>
 
-<label for="designation">Choose a designation:</label>
-<select name="designation" id="designation">
-<option value="" selected disabled>Select</option>
+            <label for="designation">Choose a designation:</label>
+            <select name="designation" id="designation">
+            <option value="" selected disabled>Select</option>
 
-</select> 
+            </select> 
        <br><br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
